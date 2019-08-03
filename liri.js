@@ -22,7 +22,7 @@ if (apiType == "movie-this") {
 
             var movieDisplay = "Title: " + movie.Title + "\nGenre: " + movie.Genre + "\nDirector: " + movie.Director + "\nRating: " + movie.Rated + "\nRelease Date: " + movie.Released;
 
-            fs.appendFile("log.txt", movieDisplay + divider, function(err) {
+            fs.appendFile("./textfiles/log.txt", movieDisplay + divider, function(err) {
                 if (err) throw err;
                 console.log(movieDisplay);
               });
@@ -44,7 +44,7 @@ else if (apiType == "spotify-this-song") {
 
             var spotifyData = "Song Name: " + song + "\nBand: " + band + "\nAlbum: " + album + "\nSpotify Link: " + songLink;
 
-            fs.appendFile("log.txt", spotifyData + divider, function(err) {
+            fs.appendFile("./textfiles/log.txt", spotifyData + divider, function(err) {
                 if (err) throw err;
                 console.log(spotifyData + "\n");
               });
@@ -64,11 +64,41 @@ else if (apiType == "concert-this") {
 
             concertDisplay = "Date: " + date + "\nVenue: " + venueName + "\nLocation: " + venueCity + ", " + venueState;
 
-            fs.appendFile("log.txt", concertDisplay + divider, function(err) {
+            fs.appendFile("./textfiles/log.txt", concertDisplay + divider, function(err) {
                 if (err) throw err;
                 console.log(concertDisplay + "\n");
               });
         }
     })
+}
+else if (apiType == "do-what-it-says"){
+   var boys = fs.readFile("./textfiles/random.txt", "utf8", function(err, data){
+    if(err) throw err;
+
+    spotifyAPI.search({ type: "track", query: data, limit: 1 }, function (err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+        var resultArray = data.tracks.items;
+
+        for (var i = 0; i < resultArray.length; i++) {
+            var band = resultArray[i].album.artists[0].name;
+            var song = resultArray[i].name;
+            var album = resultArray[i].album.name;
+            var songLink = resultArray[i].external_urls.spotify;
+
+            var spotifyData = "Song Name: " + song + "\nBand: " + band + "\nAlbum: " + album + "\nSpotify Link: " + songLink;
+
+            fs.appendFile("./textfiles/log.txt", spotifyData + divider, function(err) {
+                if (err) throw err;
+                console.log(spotifyData + "\n");
+              });
+        }
+    });
+   });
+
+   
+
+
 }
 

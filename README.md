@@ -15,26 +15,28 @@ LIRI is organized as such:
 
 * Following the first input, we need a second. This will be the name of the movie, name of the song, or name of the band you want to search, depending on the the API you are trying to use.
 
-OMDB Search Example:
+## OMDB Search Example:
 
 ![OMDB Search](./readme_images/omdbsearch.png)
 
-OMDB Result:
+## OMDB Result:
 
 ![OMDB Result](./readme_images/omdbresult.png)
 
-Spotify Search Example:
+### Spotify Search Example:
 
 ![Spotify Search](./readme_images/spotifysearch.png)
 
-Spotify Result:
+### Spotify Result:
 
 ![Spotify Result](./readme_images/spotifyresult.png)
 
-BandsInTown Search Example:
+### BandsInTown Search Example:
 
 ![BandsInTown Search](./readme_images/concertsearch.png)
 
-BandsInTown Result:
+### BandsInTown Result:
 
-![BandsInTown Result](./readme_images/concertresult.png)
+![BandsInTown Result](./readme_images/concertresults.png)
+
+

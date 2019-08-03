@@ -2,10 +2,13 @@ require("dotenv").config();
 var Spotify = require("node-spotify-api");
 var axios = require("axios");
 var keys = require("./keys.js");
+var fs = require("fs");
 
 var spotifyAPI = new Spotify(keys.spotify);
 
 // console.log(spotifyAPI);
+
+var divider = "\n------------------------------------------------------------\n\n";
 
 var apiType = process.argv[2];
 var searchTerm = process.argv.slice(3).join(" ");
@@ -17,7 +20,12 @@ if (apiType == "movie-this") {
 
             var movie = response.data;
 
-            console.log("\nTitle: " + movie.Title + "\nGenre: " + movie.Genre + "\nDirector: " + movie.Director + "\nRating: " + movie.Rated + "\nRelease Date: " + movie.Released);
+            var movieDisplay = "Title: " + movie.Title + "\nGenre: " + movie.Genre + "\nDirector: " + movie.Director + "\nRating: " + movie.Rated + "\nRelease Date: " + movie.Released;
+
+            fs.appendFile("log.txt", movieDisplay + divider, function(err) {
+                if (err) throw err;
+                console.log(movieDisplay);
+              });
         }
     );
 }
@@ -34,7 +42,12 @@ else if (apiType == "spotify-this-song") {
             var album = resultArray[i].album.name;
             var songLink = resultArray[i].external_urls.spotify;
 
-            console.log("\nSong Name: " + song + "\nBand: " + band + "\nAlbum: " + album + "\nSpotify Link: " + songLink);
+            var spotifyData = "Song Name: " + song + "\nBand: " + band + "\nAlbum: " + album + "\nSpotify Link: " + songLink;
+
+            fs.appendFile("log.txt", spotifyData + divider, function(err) {
+                if (err) throw err;
+                console.log(spotifyData + "\n");
+              });
         }
     });
 }
@@ -49,7 +62,12 @@ else if (apiType == "concert-this") {
             var venueCity = resultData[i].venue.city;
             var venueState = resultData[i].venue.region;
 
-            console.log("\nDate: " + date + "\nVenue: " + venueName + "\nLocation: " + venueCity + ", " + venueState);
+            concertDisplay = "Date: " + date + "\nVenue: " + venueName + "\nLocation: " + venueCity + ", " + venueState;
+
+            fs.appendFile("log.txt", concertDisplay + divider, function(err) {
+                if (err) throw err;
+                console.log(concertDisplay + "\n");
+              });
         }
     })
 }
